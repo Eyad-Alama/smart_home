@@ -126,6 +126,7 @@ def handle_search_response(data):
   rgb = get_param_value(data, "rgb")
   # use two dictionaries to store index->ip and ip->bulb map
   detected_bulbs[host_ip] = [bulb_id, model, power, bright, rgb, host_port]
+  print "detected bulb :" + detected_bulbs[host_ip]
   bulb_idx2ip[bulb_id] = host_ip
 
 def display_bulb(idx):
@@ -176,6 +177,10 @@ def toggle_bulb(idx):
 def set_bright(idx, bright):
   operate_on_bulb(idx, "set_bright", str(bright))
 
+def set_bright_all(bright):
+  for i in range(1, len(detected_bulbs)+1):
+    set_bright(i,bright)
+
 def print_cli_usage():
   print "Usage:"
   print "  q|quit: quit bulb manager"
@@ -185,9 +190,7 @@ def print_cli_usage():
   print "  r|refresh: refresh bulb list"
   print "  l|list: lsit all managed bulbs"
 
-def set_bright_all(bright):
-  for i in range(1, len(detected_bulbs)+1):
-    set_bright(i,bright)
+
 
   
 def handle_user_input():
@@ -245,19 +248,21 @@ def handle_user_input():
       print "error: invalid command line:", command_line
       print_cli_usage()
 
+def setup():
+
 ## main starts here
 # print welcome message first
-print "Welcome to Yeelight WifiBulb Lan controller"
-#print_cli_usage
-# start the bulb detection thread
-detection_thread = Thread(target=bulbs_detection_loop)
-detection_thread.start()
-# give detection thread some time to collect bulb info
-sleep(0.2)
-print "finished detection"
-# user interaction loop
-#handle_user_input()
-# user interaction end, tell detection thread to quit and wait
-RUNNING = False
-detection_thread.join()
-# done
+  print "Welcome to Yeelight WifiBulb Lan controller"
+  #print_cli_usage
+  # start the bulb detection thread
+  detection_thread = Thread(target=bulbs_detection_loop)
+  detection_thread.start()
+  # give detection thread some time to collect bulb info
+  sleep(0.2)
+  print "finished detection"
+  # user interaction loop
+  #handle_user_input()
+  # user interaction end, tell detection thread to quit and wait
+  RUNNING = False
+  detection_thread.join()
+  # done
