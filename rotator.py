@@ -1,5 +1,8 @@
 import RPi.GPIO as GPIO
 
+
+pinA = 38
+pinB = 36
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pinA,GPIO.IN) #clck
@@ -9,8 +12,7 @@ encoderPosCount = 0
 pinALast =0
 aVal =0
 bCW =0
-pinA = 38
-pinB = 36
+
 
 
 #Read Pin A
