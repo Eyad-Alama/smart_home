@@ -29,10 +29,10 @@ while True:
 	# 	btn_switch(btn_status)
 	#laser_freq(32,0.3)
 
-	level = getRotation(38,36) %10
-	if level==level_last:
-		time.sleep(0.1)
-	else:
+	level = getRotation(38,36) // 10
+	if level!=level_last:
+		print "level = %d " % level
+		print "level_last = %d " % level_last
 		level_last = level
 		yee.set_bright_all(level*10)
 #	print level
