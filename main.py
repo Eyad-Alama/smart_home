@@ -3,7 +3,7 @@ import time
 from rotator import getRotation
 #from active_buzzer import buzzer
 #from laser import laser_freq, laser_on, laser_off, laser_switch
-from yeelight import set_bright_all, setup
+import yeelight as yee
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -15,7 +15,7 @@ pinB = 36
 
 btn_status = False
 
-setup
+yee.setup()
 
 while True:
 
@@ -29,6 +29,6 @@ while True:
 	#laser_freq(32,0.3)
 	level = getRotation(38,36)
 	print "passing value %d to set bright level" % level
-	set_bright_all(level)
+	yee.set_bright_all(level)
 #	print level
 	#buzzer(29,3)

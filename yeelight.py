@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 import socket  
 import time
@@ -126,7 +125,6 @@ def handle_search_response(data):
   rgb = get_param_value(data, "rgb")
   # use two dictionaries to store index->ip and ip->bulb map
   detected_bulbs[host_ip] = [bulb_id, model, power, bright, rgb, host_port]
-  print "detected bulb :" + detected_bulbs[host_ip]
   bulb_idx2ip[bulb_id] = host_ip
 
 def display_bulb(idx):
@@ -267,3 +265,5 @@ def setup():
   RUNNING = False
   detection_thread.join()
   # done
+
+setup()
