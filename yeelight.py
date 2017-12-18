@@ -52,42 +52,44 @@ def bulbs_detection_loop():
   a standalone thread broadcasting search request and listening on all responses
   '''
   debug("bulbs_detection_loop running")
-  search_interval=30000
+  search_interval=300000
   read_interval=100
   time_elapsed=0
 
-  while RUNNING:
-    if time_elapsed%search_interval == 0:
-      send_search_broadcast()
+  #while RUNNING:
+  if time_elapsed%search_interval == 0:
+    send_search_broadcast()
 
-    # scanner
-    while True:
-      try:
-        data = scan_socket.recv(2048)
-      except socket.error, e:
-        err = e.args[0]
-        if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
-            break
-        else:
-            print e
-            sys.exit(1)
-      handle_search_response(data)
+  # scanner
+  while True:
+    try:
+      data = scan_socket.recv(2048)
+    except socket.error, e:
+      err = e.args[0]
+      if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
+          break
+      else:
+          print e
+          sys.exit(1)
+    handle_search_response(data)
 
-    # passive listener 
-    while True:
-      try:
-        data, addr = listen_socket.recvfrom(2048)
-      except socket.error, e:
-        err = e.args[0]
-        if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
-            break
-        else:
-            print e
-            sys.exit(1)
-      handle_search_response(data)
+  # passive listener 
+  while True:
+    try:
+      data, addr = listen_socket.recvfrom(2048)
+    except socket.error, e:
+      err = e.args[0]
+      if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
+          break
+      else:
+          print e
+          sys.exit(1)
+    handle_search_response(data)
 
-    time_elapsed+=read_interval
-    sleep(read_interval/1000.0)
+  time_elapsed+=read_interval
+  sleep(read_interval/1000.0)
+  #end while running
+  
   scan_socket.close()
   listen_socket.close()
 
