@@ -88,7 +88,6 @@ def bulbs_detection_loop():
 
     time_elapsed+=read_interval
     sleep(read_interval/1000.0)
-    print detected_bulbs
   #end while running
   
   scan_socket.close()
@@ -158,8 +157,6 @@ def operate_on_bulb(idx, method, params):
   if not bulb_idx2ip.has_key(idx):
     print "error: invalid bulb idx"
     return
-  print "detected bulbs = " + detected_bulbs 
-  print "called with params " + idx + '  ..  ' + method + ' ...  ' + params
   bulb_ip=bulb_idx2ip[idx]
   port=detected_bulbs[bulb_ip][5]
   try:
@@ -180,7 +177,6 @@ def set_bright(idx, bright):
   operate_on_bulb(idx, "set_bright", str(bright))
 
 def set_bright_all(bright):
-  print "hi"
   for i in range(1, 4):
     set_bright(i,bright)
 
@@ -265,7 +261,7 @@ def setup():
   sleep(0.2)
   print "finished detection"
   # user interaction loop
-  handle_user_input()
+  #handle_user_input()
   # user interaction end, tell detection thread to quit and wait
   RUNNING = False
   # detection_thread.join()
