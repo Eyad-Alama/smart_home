@@ -17,7 +17,7 @@ btn_status = False
 
 yee.setup()
 
-while True:
+#while True:
 
 	# status = button_read(37)
 	# if status >0:
@@ -27,8 +27,7 @@ while True:
 	# 		btn_status = False
 	# 	btn_switch(btn_status)
 	#laser_freq(32,0.3)
-	level = getRotation(38,36)
-	print "passing value %d to set bright level" % level
-	yee.set_bright_all(level)
+level = getRotation(38,36)
+yee.set_bright_all(level)
 #	print level
 	#buzzer(29,3)

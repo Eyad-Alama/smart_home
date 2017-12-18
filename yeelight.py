@@ -44,8 +44,8 @@ def send_search_broadcast():
   msg = msg + "HOST: 239.255.255.250:1982\r\n"
   msg = msg + "MAN: \"ssdp:discover\"\r\n"
   msg = msg + "ST: wifi_bulb"
-  scan_socket.sendto(msg, multicase_address)
   print msg
+  scan_socket.sendto(msg, multicase_address)
 
 def bulbs_detection_loop():
   '''
@@ -88,6 +88,7 @@ def bulbs_detection_loop():
 
   time_elapsed+=read_interval
   sleep(read_interval/1000.0)
+  print detected_bulbs
   #end while running
   
   scan_socket.close()
@@ -179,7 +180,8 @@ def set_bright(idx, bright):
   operate_on_bulb(idx, "set_bright", str(bright))
 
 def set_bright_all(bright):
-  for i in range(1, len(detected_bulbs)+1):
+  print "hi"
+  for i in range(1, 4):
     set_bright(i,bright)
 
 def print_cli_usage():
@@ -256,16 +258,15 @@ def setup():
   print "Welcome to Yeelight WifiBulb Lan controller"
   #print_cli_usage
   # start the bulb detection thread
-  detection_thread = Thread(target=bulbs_detection_loop)
-  detection_thread.start()
+  #detection_thread = Thread(target=bulbs_detection_loop)
+  #detection_thread.start()
+  bulbs_detection_loop()
   # give detection thread some time to collect bulb info
   sleep(0.2)
   print "finished detection"
   # user interaction loop
   #handle_user_input()
   # user interaction end, tell detection thread to quit and wait
-  RUNNING = False
-  detection_thread.join()
+  #RUNNING = False
+  #detection_thread.join()
   # done
-
-setup()
