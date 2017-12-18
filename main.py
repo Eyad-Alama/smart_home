@@ -28,6 +28,7 @@ while True:
 	# 	btn_switch(btn_status)
 	#laser_freq(32,0.3)
 	level = getRotation(38,36)
+	print "passing value %d to set bright level" % level
 	set_bright_all(level)
 #	print level
 	#buzzer(29,3)

@@ -157,7 +157,8 @@ def operate_on_bulb(idx, method, params):
   if not bulb_idx2ip.has_key(idx):
     print "error: invalid bulb idx"
     return
-  
+  print "detected bulbs = " + detected_bulbs 
+  print "called with params " + idx + '  ..  ' + method + ' ...  ' + params
   bulb_ip=bulb_idx2ip[idx]
   port=detected_bulbs[bulb_ip][5]
   try:

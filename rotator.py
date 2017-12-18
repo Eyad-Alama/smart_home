@@ -39,7 +39,6 @@ def getRotation(pinA, pinB, limit=100):
       bCW = False
       if encoderPosCount >0:
         encoderPosCount -=1
-    print bCW
     print encoderPosCount
   pinALast = aVal
   return encoderPosCount
