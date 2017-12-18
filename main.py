@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 from rotator import getRotation
-from active_buzzer import buzzer
-from laser import laser_freq, laser_on, laser_off, laser_switch
+#from active_buzzer import buzzer
+#from laser import laser_freq, laser_on, laser_off, laser_switch
 from yeelight import set_bright_all, setup
 
 GPIO.setwarnings(False)
