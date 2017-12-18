@@ -6,6 +6,7 @@ import re
 import os
 import errno
 import struct
+import thread
 from threading import Thread
 from time import sleep
 from collections import OrderedDict
@@ -44,7 +45,6 @@ def send_search_broadcast():
   msg = msg + "HOST: 239.255.255.250:1982\r\n"
   msg = msg + "MAN: \"ssdp:discover\"\r\n"
   msg = msg + "ST: wifi_bulb"
-  print msg
   scan_socket.sendto(msg, multicase_address)
 
 def bulbs_detection_loop():
@@ -258,9 +258,9 @@ def setup():
   print "Welcome to Yeelight WifiBulb Lan controller"
   #print_cli_usage
   # start the bulb detection thread
-  detection_thread = Thread(target=bulbs_detection_loop)
-  detection_thread.start()
-  bulbs_detection_loop()
+  thread.start_new_thread( bulbs_detection_loop, () )
+  # detection_thread = Thread(target=bulbs_detection_loop)
+  # detection_thread.start()
   # give detection thread some time to collect bulb info
   sleep(0.2)
   print "finished detection"
@@ -268,5 +268,5 @@ def setup():
   handle_user_input()
   # user interaction end, tell detection thread to quit and wait
   RUNNING = False
-  detection_thread.join()
+  # detection_thread.join()
   # done
