@@ -1,19 +1,19 @@
-import RPi.GPIO as GPIO
-import time
-from rotator import getRotation
-#from active_buzzer import buzzer
-#from laser import laser_freq, laser_on, laser_off, laser_switch
+# import RPi.GPIO as GPIO
+# import time
+# from rotator import getRotation
+# #from active_buzzer import buzzer
+# #from laser import laser_freq, laser_on, laser_off, laser_switch
 import yeelight as yee
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
+# GPIO.setwarnings(False)
+# GPIO.setmode(GPIO.BOARD)
 
 
 
-pinA = 38
-pinB = 36
+# pinA = 38
+# pinB = 36
 
-btn_status = False
+# btn_status = False
 
 yee.setup()
 
@@ -27,7 +27,7 @@ yee.setup()
 	# 		btn_status = False
 	# 	btn_switch(btn_status)
 	#laser_freq(32,0.3)
-level = getRotation(38,36)
-yee.set_bright_all(level)
+# level = getRotation(38,36)
+# yee.set_bright_all(level)
 #	print level
 	#buzzer(29,3)

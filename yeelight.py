@@ -56,39 +56,39 @@ def bulbs_detection_loop():
   read_interval=100
   time_elapsed=0
 
-  #while RUNNING:
-  if time_elapsed%search_interval == 0:
-    send_search_broadcast()
+  while RUNNING:
+    if time_elapsed%search_interval == 0:
+      send_search_broadcast()
 
-  # scanner
-  while True:
-    try:
-      data = scan_socket.recv(2048)
-    except socket.error, e:
-      err = e.args[0]
-      if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
-          break
-      else:
-          print e
-          sys.exit(1)
-    handle_search_response(data)
+    # scanner
+    while True:
+      try:
+        data = scan_socket.recv(2048)
+      except socket.error, e:
+        err = e.args[0]
+        if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
+            break
+        else:
+            print e
+            sys.exit(1)
+      handle_search_response(data)
 
-  # passive listener 
-  while True:
-    try:
-      data, addr = listen_socket.recvfrom(2048)
-    except socket.error, e:
-      err = e.args[0]
-      if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
-          break
-      else:
-          print e
-          sys.exit(1)
-    handle_search_response(data)
+    # passive listener 
+    while True:
+      try:
+        data, addr = listen_socket.recvfrom(2048)
+      except socket.error, e:
+        err = e.args[0]
+        if err == errno.EAGAIN or err == errno.EWOULDBLOCK:
+            break
+        else:
+            print e
+            sys.exit(1)
+      handle_search_response(data)
 
-  time_elapsed+=read_interval
-  sleep(read_interval/1000.0)
-  print detected_bulbs
+    time_elapsed+=read_interval
+    sleep(read_interval/1000.0)
+    print detected_bulbs
   #end while running
   
   scan_socket.close()
@@ -258,15 +258,15 @@ def setup():
   print "Welcome to Yeelight WifiBulb Lan controller"
   #print_cli_usage
   # start the bulb detection thread
-  #detection_thread = Thread(target=bulbs_detection_loop)
-  #detection_thread.start()
+  detection_thread = Thread(target=bulbs_detection_loop)
+  detection_thread.start()
   bulbs_detection_loop()
   # give detection thread some time to collect bulb info
   sleep(0.2)
   print "finished detection"
   # user interaction loop
-  #handle_user_input()
+  handle_user_input()
   # user interaction end, tell detection thread to quit and wait
-  #RUNNING = False
-  #detection_thread.join()
+  RUNNING = False
+  detection_thread.join()
   # done
